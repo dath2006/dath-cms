@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "analytics",
+  "info": {
+    "singularName": "analytic",
+    "pluralName": "analytics",
+    "displayName": "Analytic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date"
+    },
+    "viewsTotal": {
+      "type": "integer",
+      "default": 0
+    },
+    "postsCreated": {
+      "type": "integer",
+      "default": 0
+    },
+    "wordsWritten": {
+      "type": "integer",
+      "default": 0
+    },
+    "mediaUploaded": {
+      "type": "integer",
+      "default": 0
+    },
+    "storageUsed": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

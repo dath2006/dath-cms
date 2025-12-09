@@ -1,0 +1,150 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posts",
+  "info": {
+    "singularName": "post",
+    "pluralName": "posts",
+    "displayName": "Post"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "excerpt": {
+      "type": "text"
+    },
+    "postType": {
+      "type": "enumeration",
+      "default": "blog",
+      "enum": [
+        "quickThought",
+        "blog",
+        "image",
+        "video",
+        "audio",
+        "mixed",
+        "link"
+      ]
+    },
+    "postStatus": {
+      "type": "enumeration",
+      "default": "draft",
+      "enum": [
+        "draft",
+        "published",
+        "scheduled",
+        "archived"
+      ]
+    },
+    "visibility": {
+      "type": "enumeration",
+      "default": "private",
+      "enum": [
+        "private",
+        "public"
+      ]
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "media": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "wordCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "readingTime": {
+      "type": "integer",
+      "default": 0
+    },
+    "viewCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "isPinned": {
+      "type": "boolean",
+      "default": false
+    },
+    "isFavorite": {
+      "type": "boolean",
+      "default": false
+    },
+    "shareToken": {
+      "type": "string",
+      "unique": true
+    },
+    "shareEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "shareViewCount": {
+      "type": "integer",
+      "default": 0
+    },
+    "mood": {
+      "type": "enumeration",
+      "enum": [
+        "happy",
+        "sad",
+        "neutral",
+        "tired",
+        "energized",
+        "anxious",
+        "excited"
+      ]
+    },
+    "location": {
+      "type": "string"
+    },
+    "linkUrl": {
+      "type": "text"
+    },
+    "isTrash": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "posts"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "posts"
+    },
+    "collections": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::collection.collection",
+      "mappedBy": "posts"
+    }
+  }
+}
