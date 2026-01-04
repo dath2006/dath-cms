@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "atomic_logs",
+  "info": {
+    "singularName": "atomic-log",
+    "pluralName": "atomic-logs",
+    "displayName": "AtomicLog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "baseValue": {
+      "type": "integer",
+      "required": true
+    },
+    "conditions": {
+      "type": "json"
+    },
+    "finalScore": {
+      "type": "decimal"
+    },
+    "atomic_metric": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::atomic-metric.atomic-metric",
+      "inversedBy": "logs"
+    }
+  }
+}

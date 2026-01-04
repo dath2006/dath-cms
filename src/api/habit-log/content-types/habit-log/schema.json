@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "habit_logs",
+  "info": {
+    "singularName": "habit-log",
+    "pluralName": "habit-logs",
+    "displayName": "HabitLog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "date": {
+      "type": "date",
+      "required": true,
+      "unique": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "habit": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::habit.habit",
+      "inversedBy": "logs"
+    }
+  }
+}

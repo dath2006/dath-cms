@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "atomic_metrics",
+  "info": {
+    "singularName": "atomic-metric",
+    "pluralName": "atomic-metrics",
+    "displayName": "AtomicMetric"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "baseUnit": {
+      "type": "string",
+      "required": true
+    },
+    "multipliers": {
+      "type": "component",
+      "component": "productivity.multiplier-config",
+      "repeatable": true
+    },
+    "logs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::atomic-log.atomic-log",
+      "mappedBy": "atomic_metric"
+    }
+  }
+}

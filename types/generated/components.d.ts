@@ -1,5 +1,18 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ProductivityMultiplierConfig extends Struct.ComponentSchema {
+  collectionName: 'components_productivity_multiplier_configs';
+  info: {
+    displayName: 'MultiplierConfig';
+    icon: 'clock';
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['scale', 'boolean']>;
+    weight: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1>;
+  };
+}
+
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media';
   info: {
@@ -73,6 +86,7 @@ export interface SharedSlider extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'productivity.multiplier-config': ProductivityMultiplierConfig;
       'shared.media': SharedMedia;
       'shared.post-order': SharedPostOrder;
       'shared.quote': SharedQuote;

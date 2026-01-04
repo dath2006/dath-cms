@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_productivity_multiplier_configs",
+  "info": {
+    "displayName": "MultiplierConfig",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "scale",
+        "boolean"
+      ]
+    },
+    "weight": {
+      "type": "decimal",
+      "default": 1
+    }
+  },
+  "config": {}
+}

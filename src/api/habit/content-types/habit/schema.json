@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "habits",
+  "info": {
+    "singularName": "habit",
+    "pluralName": "habits",
+    "displayName": "Habit"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "habitStatus": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "completed",
+        "failed",
+        "archived"
+      ]
+    },
+    "currentStreak": {
+      "type": "integer",
+      "default": 0
+    },
+    "logs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::habit-log.habit-log",
+      "mappedBy": "habit"
+    }
+  }
+}

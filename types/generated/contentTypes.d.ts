@@ -530,6 +530,76 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAtomicLogAtomicLog extends Struct.CollectionTypeSchema {
+  collectionName: 'atomic_logs';
+  info: {
+    displayName: 'AtomicLog';
+    pluralName: 'atomic-logs';
+    singularName: 'atomic-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    atomic_metric: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::atomic-metric.atomic-metric'
+    >;
+    baseValue: Schema.Attribute.Integer & Schema.Attribute.Required;
+    conditions: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    finalScore: Schema.Attribute.Decimal;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::atomic-log.atomic-log'
+    > &
+      Schema.Attribute.Private;
+    logDate: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAtomicMetricAtomicMetric
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'atomic_metrics';
+  info: {
+    displayName: 'AtomicMetric';
+    pluralName: 'atomic-metrics';
+    singularName: 'atomic-metric';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    baseUnit: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::atomic-metric.atomic-metric'
+    > &
+      Schema.Attribute.Private;
+    logs: Schema.Attribute.Relation<'oneToMany', 'api::atomic-log.atomic-log'>;
+    multipliers: Schema.Attribute.Component<
+      'productivity.multiplier-config',
+      true
+    >;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   collectionName: 'authors';
   info: {
@@ -660,6 +730,70 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     siteDescription: Schema.Attribute.Text & Schema.Attribute.Required;
     siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHabitLogHabitLog extends Struct.CollectionTypeSchema {
+  collectionName: 'habit_logs';
+  info: {
+    displayName: 'HabitLog';
+    pluralName: 'habit-logs';
+    singularName: 'habit-log';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    habit: Schema.Attribute.Relation<'manyToOne', 'api::habit.habit'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::habit-log.habit-log'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHabitHabit extends Struct.CollectionTypeSchema {
+  collectionName: 'habits';
+  info: {
+    displayName: 'Habit';
+    pluralName: 'habits';
+    singularName: 'habit';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currentStreak: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    description: Schema.Attribute.RichText;
+    habitStatus: Schema.Attribute.Enumeration<
+      ['active', 'completed', 'failed', 'archived']
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::habit.habit'> &
+      Schema.Attribute.Private;
+    logs: Schema.Attribute.Relation<'oneToMany', 'api::habit-log.habit-log'>;
+    publishedAt: Schema.Attribute.DateTime;
+    startDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1280,10 +1414,14 @@ declare module '@strapi/strapi' {
       'api::about.about': ApiAboutAbout;
       'api::analytic.analytic': ApiAnalyticAnalytic;
       'api::article.article': ApiArticleArticle;
+      'api::atomic-log.atomic-log': ApiAtomicLogAtomicLog;
+      'api::atomic-metric.atomic-metric': ApiAtomicMetricAtomicMetric;
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
       'api::collection.collection': ApiCollectionCollection;
       'api::global.global': ApiGlobalGlobal;
+      'api::habit-log.habit-log': ApiHabitLogHabitLog;
+      'api::habit.habit': ApiHabitHabit;
       'api::post.post': ApiPostPost;
       'api::tag.tag': ApiTagTag;
       'plugin::content-releases.release': PluginContentReleasesRelease;
